@@ -1,0 +1,11 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Obsidian config (customize as needed)
+.obsidian/*
+!.obsidian/community-plugins.json
+
+# Optional: ignore workspace file if you don't want to sync layout
+.obsidian/workspace
+.obsidian/workspace.json
