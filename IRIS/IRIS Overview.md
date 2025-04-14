@@ -1,29 +1,11 @@
 ---
 dg-publish: true
-dg-home: true
 ---
 Welcome to the IRIS Notes! This site was made in Obsidian using the [Digital Garden extension](https://dg-docs.ole.dev/), hosted on [GitHub](https://github.com/Baron-Paelen/iris-notes-site), and deployed using [Vercel](https://vercel.com). Many of the pages here heavily paraphrase or quote the [SAMD51 Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-D5x-E5x-Family-Data-Sheet-DS60001507.pdf).
 
 The purpose of this website is to hopefully demystify the software side of IRIS by presenting a more digestible version of the SAMD51's datasheet. As of the creation of this website, we've started migrating to the [[20 - Professional/21 - SCIPP/21.01 - IRIS/IRIS-Notes-Site/docs/M4 Board|M4 Board]], so most of the specifics will be tailored to the SAMD51/M4 board. 
 
-Below you will find the currently available notes. The *Code Analysis* folder contains notes on code lifted from external sources to help build intuition.
-
-%% Begin Waypoint %%
-- [[ADC]]
-- [[Analog Board Notes]]
-- **Code Analysis**
-    - [[raidersnake's ADC multiplexing]]
-    - [[SdFat ExFatLogger]]
-- [[DMA Controller]]
-- [[IRIS]]
-- [[M4 Board]]
-- [[Power Saving Options]]
-- [[Quick Start]]
-- [[Resources]]
-- [[SdFat Library]]
-
-%% End Waypoint %%
-
+In the sidebar, you will find all currently available notes. The *Code Analysis* folder contains notes on code lifted from external sources to help build intuition.
 # Our Approach
 ## The Problem
 The problem we're solving can be boiled down to orchestrating the following:
