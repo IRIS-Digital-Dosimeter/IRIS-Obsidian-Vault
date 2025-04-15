@@ -11,7 +11,8 @@ jobs:
     steps:
       - name: Trigger Build and Deploy in GH Page
         run: |
-          curl -X POST \
+          curl -L \
+            -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.REPO_B_TOKEN }}" \
             https://api.github.com/repos/IRIS-Digital-Dosimeter/IRIS-Digital-Dosimeter.github.io/dispatches \
