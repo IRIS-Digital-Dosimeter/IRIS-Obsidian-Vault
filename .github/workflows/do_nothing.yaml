@@ -1,0 +1,12 @@
+name: do_nothing
+on:
+  pull_request:
+    branches:  
+      - main
+
+jobs:
+  doing_nothing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: No-op step
+        run: echo "This is a placeholder check to trigger branch protection."
