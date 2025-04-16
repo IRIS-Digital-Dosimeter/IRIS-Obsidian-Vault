@@ -1,6 +1,4 @@
----
-dg-publish: true
----
+
 Currently, the IRIS board is transitioning from the [Adafruit M0 Adalogger](https://www.adafruit.com/product/2796) to the [M4 Express](https://www.adafruit.com/product/3857) and [Datalogging FeatherWing](https://www.adafruit.com/product/2922). The transition is being made because the SD write latency with the M0 was simply too high. Hopefully, the M4's SAMD51 chip will be more than enough for our purposes.
 
 As described in the [[20 - Professional/21 - SCIPP/21.01 - IRIS/IRIS/IRIS|IRIS]] notes, the current approach is as follows:

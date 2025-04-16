@@ -1,6 +1,4 @@
----
-dg-publish: true
----
+
 
 > [!tldr]- Datasheet Reference
 > [[Resources#^d11da6|Section 45]]

@@ -1,6 +1,4 @@
----
-dg-publish: true
----
+
 ![[Pasted image 20250107131911.png]]
 ## Diode
 - reverse bias?

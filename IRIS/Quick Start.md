@@ -1,6 +1,4 @@
----
-dg-publish: true
----
+
 ## Setting Up Your Computer and M0/M4!
 
 > [!info] Please Read!

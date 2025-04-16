@@ -1,6 +1,4 @@
----
-dg-publish: true
----
+
 
 - [SAMD51 Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-D5x-E5x-Family-Data-Sheet-DS60001507.pdf) ^d11da6
 - MartinL Holy Grail
