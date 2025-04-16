@@ -6,3 +6,5 @@ title: Welcome!
 Hello there!
 
 ## Testing the dispatch event!
+
+## Testing up-to-date rule
