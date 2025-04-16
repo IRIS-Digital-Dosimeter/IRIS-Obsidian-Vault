@@ -1,6 +1,4 @@
----
-dg-publish: true
----
+
 > [!tldr]-  Reference
 > [[Resources#^9eb02b|Arduino Reference]]
 > [[Resources#^1259ff|Source Repo]]

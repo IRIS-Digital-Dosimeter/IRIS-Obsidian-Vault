@@ -1,6 +1,4 @@
----
-dg-publish: false
----
+
 **Source:** [SAMD51 ADC0 and ADC1 Multiplexing with DMA - Hardware / Arduino Zero - Arduino Forum](https://forum.arduino.cc/t/samd51-adc0-and-adc1-multiplexing-with-dma/1238002/8)
 
 **This one's interesting because raidersnake not only had a very similar objective, but also solved the issue of programming the [[DMA Controller|DMAC]] and using SPI/SD card in the same sketch without locking up the board.** **However, it came with some errors that stop ADC1 from functioning continuously without some tweaks. Even then, ADC1 does not seem to be giving real results.**

@@ -4,7 +4,6 @@ aliases:
   - DMA
 tags:
   - Stub
-dg-publish: true
 ---
 *Many paragraphs were paraphrased or lifted straight from the datasheet!*
 

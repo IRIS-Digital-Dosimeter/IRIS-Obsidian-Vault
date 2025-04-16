@@ -3,8 +3,8 @@ title: Welcome!
 ---
 #Stub 
 
-Hello there!
+# This page is under construction!
 
-## Testing the dispatch event!
+Check out the [[Contributing|contribution guide]]!
 
-## Testing up-to-date rule
+Check out existing notes from the sidebar!

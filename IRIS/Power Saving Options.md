@@ -1,8 +1,4 @@
----
-tags:
-  - Stub
-dg-publish: true
----
+#Stub 
 Currently, we do not have any considerations for battery longevity as the board is plugged in directly via USB. However, we can use a combination of the following in the future:
 - SAMD51's sleep mode(s)
 - ADC's window monitor to trigger an event/interrupt/wake-up when readings go above a specified threshold
