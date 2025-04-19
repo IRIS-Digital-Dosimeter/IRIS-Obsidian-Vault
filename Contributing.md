@@ -1,5 +1,3 @@
-#Stub 
-
 Contributing to this site is a relatively simple process with a bit of first-time setup. 
 # First-Time Setup
 
