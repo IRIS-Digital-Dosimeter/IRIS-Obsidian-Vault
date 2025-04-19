@@ -61,7 +61,8 @@ This branch will act as your personal staging ground and digital backup for your
 2. **Navigate to your cloned repository** - by default this should be `~/Documents/GitHub/IRIS-Obsidian-Vault`. Select this folder. If everything has been done correctly, you should see the following:
    ![[Pasted image 20250415231811.png|500]]
 3. Now that your Obsidian has successfully connected to your vault, Obsidian must be configured to look for attachments in the `./External Attachments/` folder. **Open the settings menu** using the cogwheel in the bottom left.
-4. Navigate to the *Files and Links* tab:![[Pasted image 20250415232033.png|500]]
+4. Navigate to the *Files and Links* tab:
+![[Pasted image 20250415232033.png|500]]
 5. Edit *Default location for new attachments* from *Vault folder* to *In the folder specified below*. A new option will be shown directly underneath - edit the textbox to point to the *External Attachments* folder: 
    ![[Pasted image 20250415232258.png|500]]
 

@@ -11,10 +11,10 @@ sequenceDiagram
     participant QuartzRepo
 
 	Contributor->>Contributor: Locally edits content
-    Contributor->>ContentRepo: Periodic pushes of edits to GitHub
-    Contributor->>ContentRepo: Opens PR to merge edits into main
-    ContentRepo-->>QuartzRepo: Dispatches event (via GitHub Actions)
-    QuartzRepo->>QuartzRepo: Receives dispatched event
+    Contributor->>ContentRepo: Periodic pushes to GitHub
+    Contributor->>ContentRepo: Opens PR to merge into main
+    ContentRepo-->>QuartzRepo: Sends event via GitHub Actions
+    QuartzRepo->>QuartzRepo: Receives  event
     QuartzRepo->>ContentRepo: Pulls latest main branch
     QuartzRepo->>QuartzRepo: Builds site using Quartz
     QuartzRepo->>GitHub Pages: Deploys site
