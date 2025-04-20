@@ -1,3 +1,7 @@
+---
+tags:
+  - Stub
+---
 
 Welcome to the IRIS Notes! This site was made in Obsidian using the [Digital Garden extension](https://dg-docs.ole.dev/), hosted on [GitHub](https://github.com/Baron-Paelen/iris-notes-site), and deployed using [Vercel](https://vercel.com). Many of the pages here heavily paraphrase or quote the [SAMD51 Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-D5x-E5x-Family-Data-Sheet-DS60001507.pdf).
 
@@ -22,15 +26,49 @@ This is essentially a variation of the [Producer-Consumer Problem](https://en.wi
 
 Based on the above, the workflow should look something like this:
 ```mermaid
-graph LR
-    Buffer[Buffer] --> CPU
-    CPU[CPU] --> SD[SD Card]
-    CPU --> DMAC[DMAC]
-    DMAC --> CPU
-    DMAC --> ADC[ADC]
-    DMAC --> Buffer
-    ADC --> DMAC
-    A0[A0 - A4] --> ADC 
+sequenceDiagram
+	participant ADC1
+	participant ADC2
+	participant DMAC
+	participant CPU
+	
+	participant circ as Circular Buffer
+	participant SD
+
+	CPU-->>CPU: Sketch starts
+
+	par Configurations set via DMA descriptors
+		CPU->>ADC1: 
+	and 
+		CPU->>ADC2: 
+	and
+		CPU->>DMAC: 
+	end
+
+	loop For Writing to SD
+		loop For Filling Buffer
+			loop For Each Sample
+				par Swap sampling pins
+					DMAC->>ADC1: 
+				and	
+					DMAC->>ADC2: 
+				end
+				
+				par ADCs sample
+					ADC1-->>DMAC: RESRDY
+					DMAC->>circ: Store ADC1 result
+				and
+					ADC2-->>DMAC: RESRDY
+					DMAC->>circ: Store ADC2 result
+				end
+			end	
+		end
+		
+		Note over ADC1,circ: Buffer is full
+		CPU->>SD: Write Buffer contents to SD
+		Note over ADC1,circ: Buffer now safe to overwrite
+	end
+			
 
 
 ```
@@ -52,13 +90,17 @@ The original approach for collecting IRIS data used a [M0 Adalogger](https://www
 Another flaw lay in the fact that the M0 only has 1 ADC, and the staggered readings between the 4 input pins introduced large gaps for each pin between SD writes. This means there are less datapoints between SD writes for each pin.
 
 ## M4 Approach
-In order to allow concurrent data collection and SD writing, we use the M4's SAMD51's [[DMA controller]] to control the 2 onboard [[ADC|ADCs]]. The DMAC is configured to collect samples from the ADCs into a buffer. Once the buffer is filled, the CPU begins the process of writing the buffer's contents into the SD card. The DMAC then starts new conversions on the ADCs.
+
+In order to allow concurrent data collection and SD writing, we use the M4's SAMD51's [[DMA controller]] to control the 2 onboard [[ADC|ADCs]]. The DMAC is configured to collect samples from the ADCs into a buffer. Once the buffer is filled, the CPU begins the process of writing the buffer's contents into the SD card. The DMAC continuously starts new conversions on the ADCs.
 
 ### Buffers
+
 Each ADC will get its own result buffer. Each half of a buffer will take turns being written to. This means that any one time, one half will be *volatile*, being operated on by the DMAC, while the other half will be ready for operations, like writing to SD.
 
 ***We may switch to one, single buffer containing all results later.*** This may help during the SD write process.
+
 ### ADCs
+
 The current plan is for each ADC to be given 2 pins each to alternate between. This lessens the gaps between each pin's samples. Using *DMA Sequencing*, each ADC will be controlled via their own sequencing descriptor which will be responsible for updating the ADC's next input. These descriptors will constantly point back to themselves, allowing us to repeat the input switching endlessly. We will refer to these descriptors as *input descriptors.*
 
 Each ADC will also get two descriptors to handle collecting the ready conversions from the result registers (four total output descriptors). The first descriptor is responsible for entering results into the first half of the respective buffer, while the second descriptor is responsible for entering results into the second half of the respective buffer. These descriptors will be referred to as *output descriptors*.

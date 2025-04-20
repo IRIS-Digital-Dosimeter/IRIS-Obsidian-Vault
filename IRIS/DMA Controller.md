@@ -2,8 +2,7 @@
 aliases:
   - DMAC
   - DMA
-tags:
-  - Stub
+tags: []
 ---
 *Many paragraphs were paraphrased or lifted straight from the datasheet!*
 
@@ -67,7 +66,7 @@ These *descriptors* must be stored in a contiguous block of SRAM, starting from 
 > 	- The amount of data a single *transfer descriptor* can transfer. Ranges from 1 to 64,000 beats. Interruptable.
 > - **Burst Transfer**
 > 	- Back-to-back beat transfers without CPU interference.
-> 	- <span style="background:#fff88f">Educated Guess</span>: block transfers are comprised of burst transfers
+> 	- *Block transfers* are comprised of *burst transfers*
 > - **Transaction**
 > 	- The *DMAC* can link several transfer descriptors by having the first descriptor point to the second, and so forth. A *DMA Transaction* is the complete transfer of all blocks within a linked list.
 > 	- ![[Pasted image 20240831140810.png]]
