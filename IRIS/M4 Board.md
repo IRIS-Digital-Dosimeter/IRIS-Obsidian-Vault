@@ -1,3 +1,7 @@
+---
+author: Andrew Y
+
+---
 
 Currently, the IRIS project is transitioning from the [Adafruit M0 Adalogger](https://www.adafruit.com/product/2796) to the [M4 Express](https://www.adafruit.com/product/3857) and [Datalogging FeatherWing](https://www.adafruit.com/product/2922). The transition is being made because the SD write latency with the M0 was simply too high, and the M0's singular ADC proved restrictive for higher frequency sampling. The M4's SAMD51 chip has two [[ADC|ADCs]], and a significantly higher clock speed. This means we can increase our logging and sampling frequencies significantly.
 

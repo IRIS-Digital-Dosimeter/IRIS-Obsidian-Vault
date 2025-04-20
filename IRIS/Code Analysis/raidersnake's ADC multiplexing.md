@@ -1,3 +1,7 @@
+---
+author: Andrew Y
+
+---
 
 **Source:** [SAMD51 ADC0 and ADC1 Multiplexing with DMA - Hardware / Arduino Zero - Arduino Forum](https://forum.arduino.cc/t/samd51-adc0-and-adc1-multiplexing-with-dma/1238002/8)
 

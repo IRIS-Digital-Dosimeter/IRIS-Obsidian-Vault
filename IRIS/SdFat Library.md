@@ -1,3 +1,7 @@
+---
+author: Andrew Y
+
+---
 
 > [!tldr]-  Reference
 > [[Resources#^9eb02b|Arduino Reference]]

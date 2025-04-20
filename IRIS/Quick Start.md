@@ -1,3 +1,7 @@
+---
+author: Andrew Y
+
+---
 
 ## Setting Up Your Computer and M0/M4!
 

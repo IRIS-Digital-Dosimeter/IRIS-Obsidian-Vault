@@ -2,7 +2,11 @@
 aliases:
   - DMAC
   - DMA
-tags: []
+tags:
+  - a
+  - Stub
+  - c
+author: Andrew Y
 ---
 *Many paragraphs were paraphrased or lifted straight from the datasheet!*
 
