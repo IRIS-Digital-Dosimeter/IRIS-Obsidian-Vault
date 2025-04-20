@@ -1,3 +1,7 @@
+---
+author: Andrew Y
+---
+
 ## What is it built on?
 This site is built on [Quartz](https://quartz.jzhao.xyz/), a very cool static-site generator that converts Markdown files into webpages (like this one).
 

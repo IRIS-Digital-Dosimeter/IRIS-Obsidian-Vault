@@ -1,3 +1,8 @@
+---
+author: Andrew Y
+
+---
+
 #Stub 
 Currently, we do not have any considerations for battery longevity as the board is plugged in directly via USB. However, we can use a combination of the following in the future:
 - SAMD51's sleep mode(s)

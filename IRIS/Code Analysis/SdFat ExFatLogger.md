@@ -1,3 +1,8 @@
+---
+author: Andrew Y
+
+---
+
 **Source:** [SdFat/examples/ExFatLogger at master · adafruit/SdFat · GitHub](https://github.com/adafruit/SdFat/tree/master/examples/ExFatLogger)
 
 This is a pretty feature-rich logger, though it likely has everything we need in terms of capturing data to file. They use analogRead(), which we won't be doing, instead opting to read off of our DMA-filled buffers. There is also a menu of sorts that we will also be ignoring. 
