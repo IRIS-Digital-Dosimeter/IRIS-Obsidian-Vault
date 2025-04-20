@@ -51,7 +51,7 @@ Referencing the datasheet and the definition for `DMAC_CTRL_LVLEN`, the latter t
 ### ADC DMA Sequencing Setup
 DMAC Channel 2's priority is set to 3 (highest). It's trigger source is set to ADC0's `DSEQ` trigger. The conditions for this trigger are shown in *Section 45.6.3.4* of the SAMD51 datasheet. When this trigger request comes, it triggers a *burst transfer*.
 
-Next, the empty `descriptor` is configured. The next descriptor address is set to itself, creating a *circular descriptor*., and `dstaddr` is .  <span style="background:#fff88f">The descriptor is configured according to datasheet *Section 45.6.3.4* for DMA Sequencing.</span> The descriptor is then set to be *valid*.
+Next, the empty `descriptor` is configured. The next descriptor address is set to itself, creating a *circular descriptor*., and `dstaddr` is ?. The descriptor is configured according to datasheet *Section 45.6.3.4* for DMA Sequencing. The descriptor is then set to be *valid*.
 
 `descriptor` is modified  in order to make copying easier:
 - **descaddr:** Set to itself. Circular descriptor

@@ -61,7 +61,7 @@ For adjusting sampling rate. Low priority. Adjusted via **CTRLA** register.
 Since we will always have positive values, we will use *single ended mode*. **INPUTCTRL.DIFFMODE** must be set to `1`.
 
 ## Sampling Time
-How many ADC clock cycles (CLK_ADC) are used per conversion. When **SAMPCTRL.SAMPLEN** is set to `0`, then only one clock cycle is used. Can be used to adjust sampling rate/accuracy(?).
+How many ADC clock cycles (CLK_ADC) are used per conversion. When **SAMPCTRL.SAMPLEN** is set to `0`, then only one clock cycle is used. Can be used to adjust sampling rate/accuracy(?). The longer the sampling time, the more time for a concrete value to be reached.
 
 ## Averaging Mode
 For adjusting sampling rate and accuracy. It accumulates 2<sup>n</sup> samples and then bit-shifts down to 12 bits for the averaging property. **AVGCTRL** should be configured according to the following table:
@@ -72,6 +72,9 @@ The ADC can sequence multiple conversions. When using sequencing, the ADC's conf
 
 > [!NOTE] 
 > In any of the accumulation/averaging modes, the next sequenced conversion starts when the averaged result is ready.
+>
+> > [!warning]
+> > For some reason, current attempts to integrate Averaging mode into the DMA Sequencing sketch isn't working properly. Intuition points to this function not being respected somewhere.
 
 
 > [!info]- Diagram
@@ -81,17 +84,23 @@ The ADC can sequence multiple conversions. When using sequencing, the ADC's conf
 > [!warning] 
 > Free running mode cannot be used with DMA Sequencing.
 > If a conversion is triggered by event (**EVCTRL.STARTEI** is `1`) then automatic start conversion is disabled.
+> > [!info] Not the case?
+> > Datasheet claims this, but current M4 sketches have freerunning mode enabled.
 
 
 Enabled by setting any field in **DSEQCTRL** to `1`. When turned on, **DSEQSTAT.BUSY** is set to `1`. By enabling a register via **DSEQCTRL**, the corresponding ADC register is updated automatically. 
 
-By default, a new conversion will start when a trigger is received. However, <span style="background:rgba(3, 135, 102, 0.2)">writing a `1` to **DSEQCTRL.AUTOSTART** will automatically start a new conversion when a DMA sequence completes.</span>
+By default, a new conversion will start when a trigger is received. However, w*riting a `1` to **DSEQCTRL.AUTOSTART** will automatically start a new conversion when a DMA sequence completes.*
 
 The [[DMA Controller|DMAC]] must be configured with the following:
 ![[Pasted image 20240825152715.png]]![[Pasted image 20240825152745.png]]
 
 ## Host-Client/Master-Slave Operation
 `ADC0` can be set as a *host* to `ADC1` such that `ADC1` uses the same configuration as `ADC0`. This is done by by writing a `1` to **ADC1.CTRLA.SLAVEEN**. When enabled, `GCLK_ADC0` clock and `ADC0` controls are internally routed to `ADC1`.
+
+
+> [!NOTE] Can't Use This
+> Since each ADC will have different inputs, we can't use host/client mode, as they would then share the same inputs. Also interferes with how the inputs are updated via other DMA descriptors.
 
 
 > [!info]- Diagram
