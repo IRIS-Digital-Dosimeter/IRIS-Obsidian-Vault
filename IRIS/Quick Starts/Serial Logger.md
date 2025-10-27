@@ -82,8 +82,8 @@ Now we'll run a test program on your MCU to make sure the basics are set up prop
 > I know this isn't quite the cleanest way of handling our dependencies. Once I've cleaned up the current GitHub repository more, I will work on updating all relevant scripts to work with Python's virtual environments.
 #### The Code 
 Please make sure you are looking at the `serial_log_binary` branch found [here](https://github.com/IRIS-Digital-Dosimeter/IRIS-Project/tree/serial_log_binary)!
-- The **script** can be found at: `IRIS-Project/analysis/scripts/serial_importer_all_in_one/serial_importer_all_in_one.py`.
-- You will find the **sketch** at: `IRIS-Project/packages/serial_log`.
+- The **script** can be found at: `IRIS-Project\packages\M0\Binary Serial Logger\serial_importer_all_in_one\serial_importer_all_in_one.py`.
+- You will find the **sketch** at: `IRIS-Project\packages\M0\Binary Serial Logger\serial_log`.
 	- **You need all three files in here. Not just `serial_log.ino`**
 #### Python
 - `matplotlib`
