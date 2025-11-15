@@ -4,7 +4,7 @@ author: Andrew Y
 ---
 
 ## About
-This is a guide on how to set up and operate the new M4 datalogger and accompanying plotter script for the 2025 MD Anderson trip.
+This is a guide on how to set up and operate the new M4 datalogger, accompanying plotter script, and experimental GUI app for the 2025 MD Anderson trip.
 
 ## Setting Up Your Computer and M4!
 
@@ -39,9 +39,12 @@ This is a guide on how to set up and operate the new M4 datalogger and accompany
 - [A **Local Copy** of our Code](https://github.com/IRIS-Digital-Dosimeter/IRIS-Project/tree/cleanup)
 	- [Here is a link to the zip.](https://github.com/IRIS-Digital-Dosimeter/IRIS-Project/archive/refs/heads/cleanup.zip) 
 		- If you use this link, **make sure you extract the contents somewhere memorable before moving on.**
+- [A **Local Copy** of the GUI](https://github.com/IRIS-Digital-Dosimeter/IRIS-GUI/tree/textual-attempt)
+	- **Make sure to pull the `textual-attempt` branch**
 - Install a **Toggle Switch** connecting `GPIO 5` and `Gnd` pins:
 	- ![[Pasted image 20251026190134.png|300]]
 ### Arduino IDE 
+#### Boards Manager
 The bare IDE will not recognize our microcontrollers (MCUs) without some set up. 
 1. Open *Arduino IDE*.
 2. Go to *File*->*Preferences*
@@ -53,7 +56,11 @@ https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
 5. Next, in the left sidebar, open the *Boards Manager*.
 6. Search for and install *Adafruit SAMD Boards*.
 	- This will install the proper dependencies for our MCUs.
-
+#### Library Manager
+The following libraries are required for the datalogger and the data-offloading
+- **SdFat - Adafruit Fork**
+	- and associated dependencies (should auto install)
+- **TinyUSB**
 ### Validating Your Setup!
 Now we'll run a test program on your MCU to make sure the basics are set up properly. Make sure your MCU is plugged into your computer before proceeding.
 1. In *Arduino IDE*, go to *File->Examples->Basics->Blink*. This should look something like this:
@@ -78,10 +85,7 @@ Please make sure you are looking at the `cleanup` branch!
 	- **You need all files in here. Not just `dma_dual_adc_unified_SdFat.ino`**
 #### Hardware
 - MCU: **Adafruit Feather M4 Express** with **SD+RTC Featherwing**
-- SD Card formatted to exFat
-- Libraries: 
-	- **SdFat - Adafruit Fork**
-		- and associated dependencies (should auto install)
+- SD Card formatted to **exFat**
 - Toggle Switch connecting `GPIO 5` and `Gnd` pins
 - Data Collection pins:
 	- A4
@@ -112,7 +116,7 @@ Please make sure you are looking at the `cleanup` branch!
 ## Using the Dat Plotter Script!
 ### Dependencies
 #### The Code 
-Please make sure you are looking at the `cleanup` branch!
+Please make sure you are looking at the `cleanup` branch of the `IRIS-Project` repo!
 - The **script** can be found at: `IRIS-Project\packages\M4\Toggle Switch Datalogger\m4_dma_dat_plotter\m4_dma_dat_plotter.py`.
 - You will find the **sketch** at: `IRIS-Project\packages\M4\Toggle Switch Datalogger\dma_dual_adc_unified_SfFat\dma_dual_adc_unified_SdFat.ino`.
 	- **You need all files in here. Not just `dma_dual_adc_unified_SdFat.ino`**
@@ -123,3 +127,11 @@ Please make sure you are looking at the `cleanup` branch!
 2. Run the script via `uv run ./m4_dma_dat_plotter.py [-seq] <NUM_RESULTS> <DATA DIRECTORY>` 
 	- `NUM_RESULTS`: same value as found in `config.h`. Currently, **8192**.
 	- `DATA DIRECTORY`: the directory path which holds the desired `.dat` files to plot
+
+## Using the Experimental GUI
+Please make sure you have a local copy of the [textual-attempt branch](https://github.com/IRIS-Digital-Dosimeter/IRIS-GUI/tree/textual-attempt) of the IRIS-GUI repo.
+### Running the GUI
+1. Open a terminal window in the **IRIS-GUI repo** directory.
+2. Run `uv run textual run textualtest.py`
+	- User your mouse or keyboard to navigate the menus.
+3. For MDA, preset sketches are included in the **MDAScreen**
