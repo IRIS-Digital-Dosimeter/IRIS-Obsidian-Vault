@@ -128,10 +128,3 @@ Please make sure you are looking at the `cleanup` branch of the `IRIS-Project` r
 	- `NUM_RESULTS`: same value as found in `config.h`. Currently, **8192**.
 	- `DATA DIRECTORY`: the directory path which holds the desired `.dat` files to plot
 
-## Using the Experimental GUI
-Please make sure you have a local copy of the [textual-attempt branch](https://github.com/IRIS-Digital-Dosimeter/IRIS-GUI/tree/textual-attempt) of the IRIS-GUI repo.
-### Running the GUI
-1. Open a terminal window in the **IRIS-GUI repo** directory.
-2. Run `uv run textual run textualtest.py`
-	- User your mouse or keyboard to navigate the menus.
-3. For MDA, preset sketches are included in the **MDAScreen**
