@@ -12,5 +12,6 @@ This sketch is a custom version of the [[M4 Datalogger]] sketch meant for the 20
 > [!NOTE] 
 > Follows standard `config.h` format.
 
+#TODO make sure to wait 5 seconds before starting data collection.
 ## Config Values
 #TODO
