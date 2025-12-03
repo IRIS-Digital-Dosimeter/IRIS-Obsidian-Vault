@@ -2,7 +2,7 @@
 author: Andrew Y
 tags: Stub
 ---
-
+  
 ![[Pasted image 20250107131911.png]]
 https://docs.google.com/spreadsheets/d/1VJTuBukCeR8GGBbfJELEy8z72eeXJkKCebAghGk4s7Q/edit?usp=sharing
 ## Components
@@ -33,7 +33,7 @@ https://docs.google.com/spreadsheets/d/1VJTuBukCeR8GGBbfJELEy8z72eeXJkKCebAghGk4
 	- Op-Amp creates 
 - larger capacitance = more sensitive (includes more of the baseline signal)
 ### Resistor
-- **V = I*R**
+- **V = I\*R**
 	- **I** is the leakage current from diode
 - Resistance controls baseline, time constant
 	- resistance *proportional* to baseline
