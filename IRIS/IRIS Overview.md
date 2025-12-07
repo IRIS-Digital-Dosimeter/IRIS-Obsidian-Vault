@@ -18,7 +18,7 @@ The problem we're solving can be boiled down to orchestrating the following:
 1. Gather voltage readings from *4 input pins* via the ADCs.
 2. Gather accurate timestamps for each ADC sample
 3. Store these readings in a comprehensible order/format on an SD card.
-4. Collect the data at a frequency *over 1kHz*.
+4. Collect the data at a frequency *over 1kHz* without dropping any samples.
 
 ## The Breakdown
 This is essentially a variation of the [Producer-Consumer Problem](https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem). Obviously, there are things we must work around first due to hardware constraints:
@@ -91,36 +91,31 @@ sequenceDiagram
 - **Pins**
 	- 4 input pins for the ADC (configurable in `config.h`)
 ## M0 Approach
-The original approach for collecting IRIS data used a [M0 Adalogger](https://www.adafruit.com/product/2796). It comes with a built in SD shield and the ability to use a small LiPo battery for independent operation. The main flaw with this board was the lack of support for **DMA Sequencing**, which enables automatic changes to ADC inputs, essentially automating the required pin-switching functionality with zero delay.
+The original approach for collecting IRIS data used an [M0 Adalogger](https://www.adafruit.com/product/2796). It comes with a built in SD shield and the ability to use a small LiPo battery for independent operation. The main flaw with this board was the lack of support for **DMA Sequencing**, which enables automatic changes to ADC inputs, essentially automating the required pin-switching functionality with zero delay.
 
 Another flaw lay in the fact that the M0 only has 1 ADC, and the staggered readings between the 4 input pins introduced large gaps for each pin between SD writes. This means there are less datapoints between SD writes for each pin.
 
 ## M4 Approach
 
-In order to allow concurrent data collection and SD writing, we use the M4's SAMD51's [[DMA controller]] to control the 2 onboard [[ADC|ADCs]]. The DMAC is configured to collect samples from the ADCs into a buffer. Once the buffer is filled, the CPU begins the process of writing the buffer's contents into the SD card. The DMAC continuously starts new conversions on the ADCs.
-
+In order to allow concurrent data collection and SD writing, we use the M4's [[DMA controller]] to address the 2 onboard [[ADC|ADCs]]. The DMAC is configured to collect samples from the ADCs into a buffer. Once the buffer is filled, the CPU begins the process of writing the buffer's contents into the SD card. The DMAC continuously starts new conversions on the ADCs, eliminating previous data loss.
 ### Buffers
 
 Each ADC will get its own result buffer. Each half of a buffer will take turns being written to. This means that any one time, one half will be *volatile*, being operated on by the DMAC, while the other half will be ready for operations, like writing to SD.
 
-***We may switch to one, single buffer containing all results later.*** This may help during the SD write process.
-
+There is also a single, larger buffer which acts as a staging ground for interleaving the 2 ADC result buffers and adding timestamps. This process occurs directly before the write to SD.
 ### ADCs
 
-The current plan is for each ADC to be given 2 pins each to alternate between. This lessens the gaps between each pin's samples. Using *DMA Sequencing*, each ADC will be controlled via their own sequencing descriptor which will be responsible for updating the ADC's next input. These descriptors will constantly point back to themselves, allowing us to repeat the input switching endlessly. We will refer to these descriptors as *input descriptors.*
+The current plan is for each ADC to be given 2 pins each to alternate between. This lessens the gaps between each pin's samples. Using *[[ADC#DMA Sequencing]]*, each ADC will be controlled via their own sequencing descriptor which will be responsible for updating the ADC's next input. These descriptors will constantly point back to themselves, allowing us to repeat the input switching endlessly. We refer to these descriptors as *input descriptors.*
 
-Each ADC will also get two descriptors to handle collecting the ready conversions from the result registers (four total output descriptors). The first descriptor is responsible for entering results into the first half of the respective buffer, while the second descriptor is responsible for entering results into the second half of the respective buffer. These descriptors will be referred to as *output descriptors*.
-
-***We may switch to one, single buffer containing all results later.*** This may help during the SD write process. This can be done by changing the `dstaddr` field for the *output descriptors*.
-
+Each ADC will also get two descriptors to handle collecting the ready conversions from the result registers (four total output descriptors). The first descriptor is responsible for entering results into the first half of the respective buffer, while the second descriptor is responsible for entering results into the second half of the respective buffer. These descriptors are referred to as *output descriptors*.
 ### SD
 
-Physically, the SD card is mounted on a [Adafruit Adalogger Featherwing](https://www.adafruit.com/product/2922) which sits directly atop the M4 feather. The M4 uses SPI to communicate with the SD card, and uses pin `10` as the chip-select. This featherwing also gives us access to a high precision RTC module, though it currently sits unused.
+Physically, the SD card is mounted on a [Adafruit Adalogger Featherwing](https://www.adafruit.com/product/2922) which sits directly atop the M4 Feather Express. The M4 uses SPI to communicate with the SD card, and uses pin `10` as the chip-select. This featherwing also gives us access to a high precision RTC module, though it currently sits unused.
 
 In software, we use the [Adafruit fork of the SdFat library](https://github.com/dzalf/SdFat---Adafruit-Fork), which gives much better control and latency compared to the default Arduino SD library. We currently preallocate several megabytes of data per file, and commit to disk frequently to minimize data-loss from sudden power loss.
 ### Timestamps
 
-Current timestamps are taken at the *end* of `NUM_RESULTS` samples per ADC. This means that individual timestamps must be interpolated in post-processing. This is currently done using `numpy.linspace()`, creating evenly timed timestamps based on the current and previous timestamps, and knowing `NUM_RESULTS` in advance.
+Current timestamps are taken directly *after* a results buffer is filled. This means that individual timestamps must be interpolated in post-processing. This is currently done using `numpy.linspace()`, creating evenly timed timestamps based on the current and previous timestamps, and knowing `NUM_RESULTS` in advance.
 
 This is done for 3 main reasons:
 - ADC sample collection happens independently of CPU operation
