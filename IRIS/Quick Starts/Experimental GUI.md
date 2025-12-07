@@ -19,7 +19,7 @@ This is a guide on how to set up and operate the experimental IRIS GUI built on 
 ### Screens
 The GUI is split into several "screens". You can switch between them with **CTRL+S**. You're also prompted at startup to choose a screen.
 #### ManualUploadScreen
-Allows you to manually select a sketch to upload, and view the associated `config.h` file if the sketch supports a standard one. Note that the "config editor" tab is read-only. 
+Allows you to manually select a sketch to upload, and view the associated `config.h` file if the sketch supports a standard one. Note that the "config editor" tab is read-only. f
 #### MDAScreen
 Preset sketches are included in the **MDAScreen**:
 - **Binary Serial Logger**

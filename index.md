@@ -6,6 +6,6 @@ title: Welcome!
 
 # This page is under construction!
 
-Check out the [[Contributing|contribution guide]]!
+Check out the [[IRIS/IRIS Overview|IRIS Overview]] and the [[Contributing|contribution guide]]!
 
 Check out existing notes from the sidebar!

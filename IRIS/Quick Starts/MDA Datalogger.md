@@ -13,7 +13,6 @@ This is a guide on how to set up and operate the new M4 datalogger, accompanying
 > 
 > Also, if I refer to a **script**, I am most likely referring to a *Python program* that will run on your computer/laptop. If I refer to a **sketch**, I am most likely referring to an Arduino program that will run on your MCU.
 
-
 > [!tip] 
 > Since I primarily use Linux, I will refer to *Terminal*, *cmd*, *PowerShell*, and whatever other analogous app as "terminal". For Windows users, if you see a command run as `sudo` in the guide below, you will have to run that same command (without including `sudo`) in an elevated/administrator *cmd* or *PowerShell* window. 
 

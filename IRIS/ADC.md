@@ -72,7 +72,7 @@ For adjusting sampling rate and accuracy. It accumulates 2<sup>n</sup> samples a
 ![[Pasted image 20240824135815.png]]
 
 ## DMA Sequencing
-The ADC can sequence multiple conversions. When using sequencing, the ADC's configuration registers can be updated by the [[DMA Controller]].
+The ADC can sequence multiple conversions. When using sequencing, the ADC's configuration registers can be updated by the [[DMA Controller]] automatically with linked descriptors.
 
 > [!NOTE] 
 > In any of the accumulation/averaging modes, the next sequenced conversion starts when the averaged result is ready.
