@@ -7,6 +7,8 @@ author: Andrew Y
 ## Overview
 This sketch exposes the onboard SD card as an external storage device to whatever computer the microcontroller is hooked up to.
 
+Slightly modified from the Arduino example `msc_sdfat.ino`.
+
 > [!NOTE] 
 > - Follows standard `config.h` format.
 > - Requires the `TinyUSB` USB stack.

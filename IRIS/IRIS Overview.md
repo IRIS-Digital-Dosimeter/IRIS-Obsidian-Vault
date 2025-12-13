@@ -102,7 +102,7 @@ In order to allow concurrent data collection and SD writing, we use the M4's [[D
 
 Each ADC will get its own result buffer. Each half of a buffer will take turns being written to. This means that any one time, one half will be *volatile*, being operated on by the DMAC, while the other half will be ready for operations, like writing to SD.
 
-There is also a single, larger buffer which acts as a staging ground for interleaving the 2 ADC result buffers and adding timestamps. This process occurs directly before the write to SD.
+There is also a single, larger buffer which acts as a staging ground for interleaving the 2 ADC result buffers and including timestamps. This process occurs directly before the write to SD.
 ### ADCs
 
 The current plan is for each ADC to be given 2 pins each to alternate between. This lessens the gaps between each pin's samples. Using *[[ADC#DMA Sequencing]]*, each ADC will be controlled via their own sequencing descriptor which will be responsible for updating the ADC's next input. These descriptors will constantly point back to themselves, allowing us to repeat the input switching endlessly. We refer to these descriptors as *input descriptors.*
@@ -110,7 +110,7 @@ The current plan is for each ADC to be given 2 pins each to alternate between. T
 Each ADC will also get two descriptors to handle collecting the ready conversions from the result registers (four total output descriptors). The first descriptor is responsible for entering results into the first half of the respective buffer, while the second descriptor is responsible for entering results into the second half of the respective buffer. These descriptors are referred to as *output descriptors*.
 ### SD
 
-Physically, the SD card is mounted on a [Adafruit Adalogger Featherwing](https://www.adafruit.com/product/2922) which sits directly atop the M4 Feather Express. The M4 uses SPI to communicate with the SD card, and uses pin `10` as the chip-select. This featherwing also gives us access to a high precision RTC module, though it currently sits unused.
+Physically, the SD card is mounted on a [Adafruit Adalogger Featherwing](https://www.adafruit.com/product/2922) which sits directly atop the [[M4 Board]]. The M4 uses SPI to communicate with the SD card, and uses pin `10` as the chip-select. This featherwing also gives us access to a high precision RTC module, though it currently sits unused.
 
 In software, we use the [Adafruit fork of the SdFat library](https://github.com/dzalf/SdFat---Adafruit-Fork), which gives much better control and latency compared to the default Arduino SD library. We currently preallocate several megabytes of data per file, and commit to disk frequently to minimize data-loss from sudden power loss.
 ### Timestamps
