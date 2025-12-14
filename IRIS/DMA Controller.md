@@ -16,7 +16,7 @@ author: Andrew Y
 > [!tldr]- Datasheet Reference
 > [[Resources#^d11da6|Section 22]]
 
-The SAMD51's  *DMAC* contains both DMA capabilities and a CRC engine (which we don't use). The *DMAC* can move data across RAM and peripherals without [[M4 Board|CPU]] intervention. This lets us simultaneously collect [[20 - Professional/21 - SCIPP/21.01 - IRIS/IRIS-Notes-Site/docs/ADC|ADC]] samples while writing those samples to SD, allowing a constant collection rate.
+The SAMD51's  *DMAC* contains both DMA capabilities and a CRC engine (which we don't use). The *DMAC* can move data across RAM and peripherals without [[M4 Board|CPU]] intervention. This lets us simultaneously collect [[ADC]] samples while writing those samples to SD, allowing a constant collection rate.
 
 The DMA engine works with several *DMA channels*, with only one being considered the *active channel* at any time. These channels can receive *transfer triggers* which generate *transfer requests*. These requests are handled by the *arbiter*, which decides which channel will be *active*. This will then fetch a user-defined *descriptor* for the active channel, and then finally execute the data transfer. A *descriptor* describes how a block transfer should be carried out by the DMAC. 
 

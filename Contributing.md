@@ -3,7 +3,26 @@ author: Andrew Y
 
 ---
 
-Contributing to this site is a relatively simple process with a bit of first-time setup. 
+Contributing to this site is a relatively simple process with a bit of first-time setup. The process looks something like this:
+
+```mermaid
+sequenceDiagram
+	participant member as Lab Member
+	participant notes as Notes Repo
+	participant admin as Lab Admin
+	participant site as Website Repo
+	
+member ->> notes: Pushes changes to own branch
+member ->> notes: Opens PR to merge own branch to main
+admin ->> notes: Approves changes, permitting merge
+
+notes -->> site: CI/CD triggers Website Repo
+site -->> site: CI/CD pulls  most recent Notes Repo
+site -->> site: CI/CD builds static pages from Notes contents
+site -->> site: GitHub deploys everything
+
+```
+
 # First-Time Setup
 
 ## 1. GitHub Account

@@ -7,7 +7,7 @@ Currently, the IRIS project is transitioning from the [Adafruit M0 Adalogger](ht
 
 Additionally, The SAMD51's [[DMA Controller]] supports *DMA Sequencing*, which allows the DMAC to automatically update registers of both [[ADC|ADCs]]  via DMA descriptors. This allows us to switch which pins each ADC is hooked up to automatically.
 
-As described in the [[20 - Professional/21 - SCIPP/21.01 - IRIS/IRIS/IRIS|IRIS]] notes, the current approach is as follows:
+As described in the [[index]] notes, the current approach is as follows:
 
 ```mermaid
 sequenceDiagram
